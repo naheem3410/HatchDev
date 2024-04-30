@@ -1,69 +1,99 @@
-class Laptop{
-    keyboard: KeyBoard[] = [];
-    nic: NetworkInterfaceCard;
-    screen: Display;
-    hardDisk: HardDisk;
+class Laptop {
     powerState: Boolean = false;
-    bitKind: BitKind;
-    os: OperatingSystem;
+
 
     constructor(
-        bitKind:BitKind, display: Display, nic: NetworkInterfaceCard, hd: HardDisk, keyBoards: KeyBoard[], os: OperatingSystem
-    ){
-        this.keyboard = keyBoards;
-        this.nic = nic;
-        this.screen = display;
-        this.hardDisk = hd;
-        this.bitKind = bitKind;
+        public bitKind: BitKind, public screen: Display, public nic: NetworkInterfaceCard, public hardDisk: HardDisk, public keyboard: KeyBoard[], public operatingSystem: OperatingSystem
+    ) {
         this.powerState = false;
-        this.os = os;
     }
 
-    togglePower(){
+    togglePower() {
         this.powerState = !this.powerState;
     }
 
-    update(hardDisk: HardDisk){
+    updateKeyboard(keyBoards: KeyBoard) {
+        this.keyboard.push(keyBoards);
+    }
+
+    updateNic(nic: NetworkInterfaceCard) {
+        this.nic = nic;
+    }
+
+    updateScreen(display: Display) {
+        this.screen = display;
+    }
+
+    updateOS(os: OperatingSystem) {
+        this.operatingSystem = os;
+    }
+
+    updateHardDisk(hardDisk: HardDisk) {
         this.hardDisk = hardDisk;
-        this.togglePower();
+    }
 
+    update(updateable: Map<UpdateableKey, UpdateableValue>) {
+        updateable.forEach((val, key) => {
+            switch (key) {
+                case "OS": this.updateOS(val as OperatingSystem)
+                    break;
+                case "Keyboard": this.updateKeyboard(val as KeyBoard)
+                    break;
+                case "Harddisk": this.updateHardDisk(val as HardDisk)
+                    break;
+                case "Screen": this.updateScreen(val as Display)
+                    break;
+                case "Nic": this.updateNic(val as NetworkInterfaceCard)
+                    break;
+                default: console.log("Invalid key");
+                    break;
+            }
+        });
     }
 }
 
 
-class KeyBoard{
-    kind: KeyBoardKind
-    layout: KeyBoardLayout
-}
+class KeyBoard {
 
-class NetworkInterfaceCard{
-    
-    constructor(public readonly name: string){
+    constructor(public kind: KeyBoardKind, public layout: KeyBoardLayout) {
 
     }
 }
 
-class Display{
-    size: number;
-    type: DisplayType
+class NetworkInterfaceCard {
 
-    set displaySize(val: number){
+    constructor(public readonly name: string) {
+
+    }
+}
+
+class Display {
+
+    constructor(private size: number, private type: DisplayType) {
+
+    }
+    set displaySize(val: number) {
         this.size = val;
     }
 
-    setDisplayType(val: DisplayType){
+    setDisplayType(val: DisplayType) {
         this.type = val;
     }
 }
 
-class HardDisk{
-    type: "ssd" | "hdd";
-    size: number;
-    
+class HardDisk {
+
+    constructor(public type: "ssd" | "hdd", public size: number) {
+
+    }
+
 }
 
-class OperatingSystem{
-    name: OsKind;
+class OperatingSystem {
+
+    constructor(public name: OsKind) {
+
+    }
 }
 
 type KeyBoardKind = "in-built" | "external";
@@ -71,36 +101,24 @@ type KeyBoardLayout = "Qwerty" | "Qwerzt" | "Azerty";
 type OsKind = "Linux" | "Mac" | "Windows";
 type BitKind = "x64" | "x32" | "x86";
 type DisplayType = "amoled" | "lcd" | "oled";
+type UpdateableKey = "OS" | "Keyboard" | "Harddisk" | "Screen" | "Nic";
+type UpdateableValue = OperatingSystem | KeyBoard | HardDisk | Display | NetworkInterfaceCard;
 
-const keyboard = new KeyBoard();
-keyboard.kind = "in-built";
-keyboard.layout = "Qwerty";
 
-const display = new Display();
-display.displaySize = 16;
-display.setDisplayType("amoled");
-
+const keyboard = new KeyBoard("in-built", "Qwerty");
+const display = new Display(768, "lcd");
 const nic = new NetworkInterfaceCard("nitlap");
-const hardDisk = new HardDisk();
-hardDisk.size = 520;
-hardDisk.type = "ssd";
+const hardDisk = new HardDisk("ssd", 520);
+const os = new OperatingSystem("Windows");
+const keyboardArray = [keyboard]
 
 
-const keyBoardOne = new KeyBoard();
-keyBoardOne.kind = "in-built";
-keyBoardOne.layout = "Qwerty";
-const keyBoardTwo = new KeyBoard();
-keyBoardTwo.kind = "external";
-keyBoardTwo.layout = "Qwerty";
-
-const os = new OperatingSystem();
-os.name = "Windows";
-
-const keyboardArray = [keyBoardOne, keyBoardTwo]
-
-
-const nitLap = new Laptop("x64", display, nic, hardDisk, keyboardArray,os);
+const nitLap = new Laptop("x64", display, nic, hardDisk, keyboardArray, os);
 console.log(nitLap);
-hardDisk.type = "hdd";
-nitLap.update(hardDisk);
+
+// Create a map of laptop part to be updated
+const updateable = new Map<UpdateableKey, UpdateableValue>();
+updateable.set("OS", new OperatingSystem("Mac"));
+updateable.set("Keyboard", new KeyBoard("external", "Azerty"));
+nitLap.update(updateable);
 console.log(nitLap);
