@@ -1,7 +1,5 @@
 class Laptop {
     powerState: Boolean = false;
-
-
     constructor(
         public bitKind: BitKind, public screen: Display, public nic: NetworkInterfaceCard, public hardDisk: HardDisk, public keyboard: KeyBoard[], public operatingSystem: OperatingSystem
     ) {
