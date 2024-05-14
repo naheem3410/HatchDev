@@ -63,15 +63,15 @@ class TaskManager {
     }
 
     modifyTask(id: number, newDescription: string): void {
-        // Modify task in array
+        //change task in array
         const taskToUpdate = this.tasks.find(task => task.id === id);
         if (taskToUpdate) {
             taskToUpdate.description = newDescription;
         } else {
-            console.log(`Task with ID ${id} not found.`);
+            console.log("not found ");
         }
 
-        // Modify task in linked list
+        //change task in linked list
         let currentTask = this.head;
         while (currentTask !== null) {
             if (currentTask.id === id) {
@@ -91,7 +91,6 @@ class TaskManager {
     }
 }
 
-// Example usage
 const taskManager = new TaskManager();
 
 taskManager.addTask("Complete HatchDev TypeScript Assignment");
@@ -102,6 +101,7 @@ console.log("Before modification:");
 taskManager.displayTasks();
 
 taskManager.modifyTask(2, "Need to go to the bus stop first");
+taskManager.deleteTask(1);
 
-console.log("\nAfter modification:");
+console.log("\nAfter modification and deletion:");
 taskManager.displayTasks();
