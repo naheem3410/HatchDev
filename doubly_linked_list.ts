@@ -1,13 +1,14 @@
-/*class LNode <T>{
+class DLNode <T>{
     data: T;
-    next: LNode <T>;
+    next:DLNode <T>;
+    prev:DLNode <T>;
 
     constructor(val: T){
         this.data = val;
     }
 }
 
-class LinkedList <T>{
+class DoublyLinkedList <T>{
     head: LNode<T>;
 
     add(val: T){
@@ -79,79 +80,3 @@ class LinkedList <T>{
         return -1
     }
 }
-
-
-const l = new LinkedList<number>();
-l.add(1);
-l.add(2);
-l.add(3);
-console.log(l);
-l.print2();
-l.prepend(12)
-l.print2();
-console.log("position: ", l.search(2));
-
-
-interface IStack<T>{
-    pop(): T | undefined;
-    push(item:T): void;
-    peek(): T | undefined;
-    size(): number
-}
-
-const factorial = (n:number):number=>{
-    if(n<=1)return 1;
-    return n*factorial(n-1);
-}
-
-console.log(factorial(4));
-
-//using recursion fibonnaci
-const fibonacci = (n: number): number => {
-    if (n <= 1) {
-        return n;
-    }
-    return fibonacci(n - 1) + fibonacci(n - 2);
-}
-
-/*
-const fibon = (n:number)=>{
-    if(n<1) return "invalid";
-    if(n===1 || n===2) return 1;
-    return fibon(n-1)+fibon(n-2);
-}
-
-console.log("Fibonacci: ",fibonacci(5))
-
-
-interface IQueue<T>{
-    enqueue(item: T): void;
-    dequeue(): T;
-    size(): number;
-}
-
-class Queue<T> implements IQueue<T>{
-    arr: T[];
-    start:number;
-
-    constructor(capacity:number = Infinity){
-        this.arr = []
-        this.start = 0;
-    }
-    enqueue(item: T){
-        
-    }
-
-    dequeue(): T{
-        
-    }
-
-    size():number {
-        
-        return -1
-    }
-}*/
-
-
-
-
