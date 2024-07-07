@@ -69,13 +69,13 @@ function preOrderTraversal(root: TNode | null): void {
 
 
 
-const root = new TNode(1);
+const roott = new TNode(1);
 root.left = new TNode(2);
 root.right = new TNode(3);
 root.left.left = new TNode(4);
 root.left.right = new TNode(5);
 
-preOrderTraversal(root);
+preOrderTraversal(roott);
 
 /**let out = [1,2,3,4,5];
 let inn = [...out]

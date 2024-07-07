@@ -7,18 +7,15 @@ function bubbleSort(arr: number[]): number[] {
     const n = arr.length;
 
     for (let i = 0; i < n - 1; i++) {
-        let swapped = false;
+        
         for (let j = 0; j < n - i - 1; j++) {
             if (arr[j] > arr[j + 1]) {
                 //swap
                 const temp = arr[j];
                 arr[j] = arr[j + 1];
                 arr[j + 1] = temp;
-                swapped = true;
+                
             }
-        }
-        if (!swapped) {
-            break;
         }
     }
 
@@ -112,10 +109,10 @@ function insertionSort(arr: number[]): number[] {
 }
 
 const decimalNumbers = [3.2, 5.8, 3.99, 7.8, 4, 0.7, 6.5, 5.55, 8.8];
-const numbers = [4,90,6,12,87,4,6,3,0,9,6,2,89,543];
+const numbers = [19,90,6,12,87,4,60,3,0,9,16,2,89,543];
 
 const sortedUsingBubblesort = bubbleSort(numbers);
 const sortedUsingMergesort = mergeSort(decimalNumbers);
 const sortedUsingSelectionsort = selectionSort(numbers);
 const sortedUsingInsertionsort = insertionSort(decimalNumbers);
-console.log(sortedUsingInsertionsort);
+console.log(sortedUsingBubblesort);

@@ -1,3 +1,4 @@
+/*
 class TreeNode<T>{
     value: T;
     left: TreeNode<T> | null;
@@ -100,3 +101,4 @@ const searchedNode = binaryTree.search(5);
 console.log(searchedNode);
 const traversalResult = binaryTree.traverse();
 console.log(traversalResult);
+*/
